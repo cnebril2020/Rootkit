@@ -47,4 +47,6 @@ module_init(insmod_init);
 module_exit(insmod_exit);
 ```
 
+<p align="center"><img src="image.png"></p>
+
 This LKM hooks `init_module` and `finit_module`, replacing them with functions that return 0. `return 0` indicates success, but in doing so, they block the execution of the original logic necessary to load other LKMs, being thus, preventing new modules from being loaded.
