@@ -12,4 +12,4 @@ Join Rootkit Community
 > [!Important]
 > This repository is for educational and research purposes only; We are not responsible for damages caused by use, which should only occur in controlled environments, such as VMs, with consent and in accordance with the law.
 
- Feel free to submit code to this repository.
+Feel free to make pull requests.
