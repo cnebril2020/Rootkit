@@ -9,7 +9,7 @@
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("matheuzsec/fs3cs0ciety");
-MODULE_DESCRIPTION("POC/Demo hiding 'taint' messages from /dev/ksmg and the 'lkm' functions /proc/kallsyms");
+MODULE_DESCRIPTION("POC/Demo hiding 'taint' messages from /dev/ksmg and the lkm's functions from /proc/kallsyms");
 
 #define B_F 4096  // Temporary buffer size for reading
 
