@@ -9,7 +9,7 @@ Remembering this is a simple poc/demo, btw that the `dmesg` command uses `/dev/k
 
 `/proc/kallsyms` is a file that contains the symbol table and provides all of the available functions and variables. The mathuez.ko `hook_read` function looks into this file everytime a user tries to read this file and it will filter out all the output and its line with the content `mathuez` for this POC demo's purposes.
 
-### Hiding "taint" from /dev/kmsg
+### Hiding `taint` from /dev/kmsg
 <p align="center"><img src="image.png"></p>
 
 ### Hiding from `/proc/kallsyms`
