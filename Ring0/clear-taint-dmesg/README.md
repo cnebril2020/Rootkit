@@ -13,4 +13,4 @@ Remembering this is a simple poc/demo, btw that the `dmesg` command uses `/dev/k
 <p align="center"><img src="image.png"></p>
 
 ### Hiding from `/proc/kallsyms`
-<p align="center"><img src="kallsyms.png"></p>
+<p align="center"><img src="kallsyms.jpg"></p>
