@@ -72,6 +72,6 @@ cat /proc/sys/kernel/ftrace_enabled; cat /sys/kernel/tracing/tracing_on
 
 ### Extra 
 
-[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?&logo=discord&logoColor=white)](discord.gg/66N5ZQppU7)
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?&logo=discord&logoColor=white)](https://discord.gg/66N5ZQppU7)
 [![C](https://img.shields.io/badge/C-00599C?logo=c&logoColor=white)]()
 [![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)]()
