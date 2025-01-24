@@ -14,3 +14,11 @@ Remembering this is a simple poc/demo, btw that the `dmesg` command uses `/dev/k
 
 ### Hiding from `/proc/kallsyms`
 <p align="center"><img src="kallsyms.jpg"></p>
+
+### Example of hiding from `/sys/kernel/tracing/touched_functions`
+
+![hide](https://github.com/user-attachments/assets/4532ad99-52b8-47cf-9050-1b67ec071a77)
+
+### Example of a lkm that doesnt use the read hook to filter lines containg the module name in `touched_functions`
+
+![caught](https://github.com/user-attachments/assets/b0c42daa-1f97-409a-b7a9-225562dcff0e)
