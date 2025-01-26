@@ -1,7 +1,7 @@
 ## Simple PoC for Silently Blocking All `writes` to `ftrace_enabled` && `tracing_on` as Well as Spoofing the Read from Those Files When Enabled to Appear Off
 
 ### Overview
-This Linux kernel module ensures that all `write` operations to the files `/proc/sys/kernel/ftrace_enabled` and `/proc/sys/kernel/tracing_on` are silently blocked. Additionally, the module spoofs the read value of these files to appear as `0` when they are actually enabled (`1`), but only once per read attempt to avoid spamming `0`s.
+This Linux kernel module ensures that all `write` operations to the files `/proc/sys/kernel/ftrace_enabled` and `/sys/kernel/tracing/tracing_on` are silently blocked. Additionally, the module spoofs the read value of these files to appear as `0` when they are actually enabled (`1`), but only once per read attempt to avoid spamming `0`s.
 
 The goal is to maintain the integrity of the hooks while keeping them hidden from detection or tampering. This is achieved through custom hooks implemented for the `read` and `write` syscalls.
 
@@ -72,6 +72,6 @@ cat /proc/sys/kernel/ftrace_enabled; cat /sys/kernel/tracing/tracing_on
 
 ### Extra 
 
-[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?&logo=discord&logoColor=white)](discord.gg/66N5ZQppU7)
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?&logo=discord&logoColor=white)](https://discord.gg/66N5ZQppU7)
 [![C](https://img.shields.io/badge/C-00599C?logo=c&logoColor=white)]()
 [![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)]()
