@@ -1,0 +1,1 @@
+savedcmd_/home/carlosnj/Desktop/TFG/Rootkit/Ring0/Hiding-TCP-connections/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/carlosnj/Desktop/TFG/Rootkit/Ring0/Hiding-TCP-connections/Module.symvers -T /home/carlosnj/Desktop/TFG/Rootkit/Ring0/Hiding-TCP-connections/modules.order -i Module.symvers -e 

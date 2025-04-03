@@ -1,0 +1,1 @@
+savedcmd_/home/carlosnj/Desktop/TFG/Rootkit/Ring0/Hiding-TCP-connections/modules.order := {   echo /home/carlosnj/Desktop/TFG/Rootkit/Ring0/Hiding-TCP-connections/netstat.o; :; } > /home/carlosnj/Desktop/TFG/Rootkit/Ring0/Hiding-TCP-connections/modules.order

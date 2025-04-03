@@ -1,0 +1,1 @@
+savedcmd_/home/carlosnj/Desktop/TFG/Rootkit/Ring0/Hiding-TCP-connections/netstat.mod := printf '%s\n'   netstat.o | awk '!x[$$0]++ { print("/home/carlosnj/Desktop/TFG/Rootkit/Ring0/Hiding-TCP-connections/"$$0) }' > /home/carlosnj/Desktop/TFG/Rootkit/Ring0/Hiding-TCP-connections/netstat.mod
