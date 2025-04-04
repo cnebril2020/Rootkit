@@ -1,0 +1,1 @@
+savedcmd_/home/carlosnj/Desktop/TFG/src/MatheuZ_Rookit/Ring0/kprobe-humzak711/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/carlosnj/Desktop/TFG/src/MatheuZ_Rookit/Ring0/kprobe-humzak711/Module.symvers -T /home/carlosnj/Desktop/TFG/src/MatheuZ_Rookit/Ring0/kprobe-humzak711/modules.order -i Module.symvers -e 

@@ -1,0 +1,1 @@
+savedcmd_/home/carlosnj/Desktop/TFG/src/MatheuZ_Rookit/Ring0/kprobe-humzak711/kp_hook.mod := printf '%s\n'   kp_hook.o | awk '!x[$$0]++ { print("/home/carlosnj/Desktop/TFG/src/MatheuZ_Rookit/Ring0/kprobe-humzak711/"$$0) }' > /home/carlosnj/Desktop/TFG/src/MatheuZ_Rookit/Ring0/kprobe-humzak711/kp_hook.mod

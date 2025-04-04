@@ -1,0 +1,1 @@
+savedcmd_/home/carlosnj/Desktop/TFG/src/MatheuZ_Rookit/Ring0/kprobe-humzak711/modules.order := {   echo /home/carlosnj/Desktop/TFG/src/MatheuZ_Rookit/Ring0/kprobe-humzak711/kp_hook.o; :; } > /home/carlosnj/Desktop/TFG/src/MatheuZ_Rookit/Ring0/kprobe-humzak711/modules.order
