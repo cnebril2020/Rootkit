@@ -1,62 +1,3 @@
-/*
- * ================================================================
- *                   PROCESO PRÁCTICO DEL KPROBE
- * ================================================================
- *
- * Carga del módulo:
- *   Cuando cargas el módulo del kernel (por ejemplo, usando "insmod kp_hook.ko"),
- *   se ejecuta la función de inicialización del módulo. En esta función se llama a
- *   register_kprobe() para registrar un kprobe que se engancha a la función interna
- *   del kernel __x64_sys_setuid. Esto significa que el kernel ahora “sabe” que cada
- *   vez que se ejecute __x64_sys_setuid (la función que se invoca cuando un proceso
- *   llama a setuid), debe llamar también a nuestro post-handler.
- *
- * Ejecución del sistema:
- *   Imagina que un proceso (por ejemplo, el programa de prueba en main.cpp) invoca
- *   setuid(0) para intentar cambiar su UID a 0. Normalmente, si el proceso no tiene
- *   permisos suficientes, la llamada fallaría. Sin embargo, en este caso, cuando se
- *   invoca setuid(0), el kernel ejecuta la función __x64_sys_setuid.
- *
- * Intercepción por el kprobe:
- *   Debido a que se ha registrado un kprobe sobre __x64_sys_setuid, justo después de
- *   que la función original se ejecuta (es decir, en el momento de retorno), el kernel
- *   llama a nuestro post-handler definido en el módulo. Este post-handler es una
- *   función diseñada para recibir el contexto del kprobe (incluyendo la estructura de
- *   registros del proceso) y realizar acciones adicionales.
- *
- * Acción del post-handler:
- *   En el post-handler, lo que se hace es preparar unas nuevas credenciales para el
- *   proceso (llamando a prepare_creds()), y luego modificar esos valores: se cambia el
- *   UID, EUID, SUID y FSUID a 0, y se hacen cambios similares en los identificadores de
- *   grupo y capacidades. Finalmente, se aplican estas nuevas credenciales con commit_creds().
- *   Prácticamente, lo que ocurre es que, a pesar de que el proceso intentó cambiar su UID
- *   a 0 (posiblemente sin privilegios), el post-handler “fuerza” el cambio, elevando el
- *   proceso a privilegios de root.
- *
- * Resultado:
- *   El proceso que llamó a setuid(0) ahora se encuentra con privilegios de root.
- *   Cuando el programa de usuario vuelve a consultar su UID (por ejemplo, usando getuid()),
- *   el valor es 0, demostrando que la intervención del kprobe tuvo efecto.
- *
- * Descarga del módulo:
- *   Cuando ya no necesites el módulo, puedes descargarlo con "rmmod kp_hook.ko".
- *   En ese momento, se llama a la función de salida, que desregistra el kprobe mediante
- *   unregister_kprobe(), removiendo la interceptación y restaurando el comportamiento
- *   normal del kernel.
- *
- * En resumen, el proceso práctico del kprobe en este ejemplo es:
- *
- *   - Registro: Se instala un kprobe sobre la función __x64_sys_setuid.
- *   - Intercepción: Cada vez que se llama a setuid, el kprobe intercepta la ejecución y,
- *     tras el retorno de la función original, ejecuta el post-handler.
- *   - Modificación: El post-handler modifica las credenciales del proceso, elevando sus
- *     privilegios a root.
- *   - Restauración: Cuando se descarga el módulo, el kprobe se desregistra y se elimina la
- *     intervención.
- *
- * ================================================================
- */
-
 #include <linux/kernel.h>      // Funciones y macros esenciales del kernel, como printk()
 #include <linux/module.h>      // Funciones para cargar y descargar módulos (module_init, module_exit)
 #include <linux/init.h>        // Macros para la inicialización y finalización del módulo
@@ -185,3 +126,72 @@ static void __exit rkout(void)
 // Macros que indican las funciones de inicialización y finalización del módulo.
 module_init(rkin);
 module_exit(rkout);
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ================================================================
+ *                   PROCESO PRÁCTICO DEL KPROBE
+ * ================================================================
+ *
+ * Carga del módulo:
+ *   Cuando cargas el módulo del kernel (por ejemplo, usando "insmod kp_hook.ko"),
+ *   se ejecuta la función de inicialización del módulo. En esta función se llama a
+ *   register_kprobe() para registrar un kprobe que se engancha a la función interna
+ *   del kernel __x64_sys_setuid. Esto significa que el kernel ahora “sabe” que cada
+ *   vez que se ejecute __x64_sys_setuid (la función que se invoca cuando un proceso
+ *   llama a setuid), debe llamar también a nuestro post-handler.
+ *
+ * Ejecución del sistema:
+ *   Imagina que un proceso (por ejemplo, el programa de prueba en main.cpp) invoca
+ *   setuid(0) para intentar cambiar su UID a 0. Normalmente, si el proceso no tiene
+ *   permisos suficientes, la llamada fallaría. Sin embargo, en este caso, cuando se
+ *   invoca setuid(0), el kernel ejecuta la función __x64_sys_setuid.
+ *
+ * Intercepción por el kprobe:
+ *   Debido a que se ha registrado un kprobe sobre __x64_sys_setuid, justo después de
+ *   que la función original se ejecuta (es decir, en el momento de retorno), el kernel
+ *   llama a nuestro post-handler definido en el módulo. Este post-handler es una
+ *   función diseñada para recibir el contexto del kprobe (incluyendo la estructura de
+ *   registros del proceso) y realizar acciones adicionales.
+ *
+ * Acción del post-handler:
+ *   En el post-handler, lo que se hace es preparar unas nuevas credenciales para el
+ *   proceso (llamando a prepare_creds()), y luego modificar esos valores: se cambia el
+ *   UID, EUID, SUID y FSUID a 0, y se hacen cambios similares en los identificadores de
+ *   grupo y capacidades. Finalmente, se aplican estas nuevas credenciales con commit_creds().
+ *   Prácticamente, lo que ocurre es que, a pesar de que el proceso intentó cambiar su UID
+ *   a 0 (posiblemente sin privilegios), el post-handler “fuerza” el cambio, elevando el
+ *   proceso a privilegios de root.
+ *
+ * Resultado:
+ *   El proceso que llamó a setuid(0) ahora se encuentra con privilegios de root.
+ *   Cuando el programa de usuario vuelve a consultar su UID (por ejemplo, usando getuid()),
+ *   el valor es 0, demostrando que la intervención del kprobe tuvo efecto.
+ *
+ * Descarga del módulo:
+ *   Cuando ya no necesites el módulo, puedes descargarlo con "rmmod kp_hook.ko".
+ *   En ese momento, se llama a la función de salida, que desregistra el kprobe mediante
+ *   unregister_kprobe(), removiendo la interceptación y restaurando el comportamiento
+ *   normal del kernel.
+ *
+ * En resumen, el proceso práctico del kprobe en este ejemplo es:
+ *
+ *   - Registro: Se instala un kprobe sobre la función __x64_sys_setuid.
+ *   - Intercepción: Cada vez que se llama a setuid, el kprobe intercepta la ejecución y,
+ *     tras el retorno de la función original, ejecuta el post-handler.
+ *   - Modificación: El post-handler modifica las credenciales del proceso, elevando sus
+ *     privilegios a root.
+ *   - Restauración: Cuando se descarga el módulo, el kprobe se desregistra y se elimina la
+ *     intervención.
+ *
+ * ================================================================
+ */
